@@ -1,25 +1,26 @@
 package com.main;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Menu {
     //VARIABLES
     Account[] accounts = new Account[]{
-            new Account(0),
-            new Account(1),
-            new Account(2),
-            new Account(3),
-            new Account(4)};
+            new Account(0, true),
+            new Account(1, true),
+            new Account(2, false),
+            new Account(3, false),
+            new Account(4, false)};
     int accountIndex;
     String accountsNumberString = "";
     Scanner input = new Scanner(System.in);
 
     //METHODS
     public void mainMenu(){
-        for(Account account : accounts) accountsNumberString += account.getAccountNumber() + " ";
+        for(Account account : accounts){
+            if(account.getSpecialAccount()) accountsNumberString += "S-";
+            accountsNumberString += account.getAccountNumber() + " ";
+        }
         int choose;
         do{
-            choose = 1;
             System.out.println("JAVA-BANK\nBank accounts: " + accountsNumberString + "\n\nEnter your account number:");
             choose = accountMenu(input.nextInt());
         }while (choose == 0);
@@ -39,7 +40,7 @@ public class Menu {
                     do {
                         System.out.println("Account to transfer:\n" + accountsNumberString);
                         accountTo = input.nextInt();
-                    }while (!verifyIndex(accountTo));
+                    }while (verifyIndex(accountTo));
                     accounts[accountIndex].transfer(accounts[accountTo], input);
                     break;
                 case 4:
@@ -55,7 +56,7 @@ public class Menu {
     private boolean verifyIndex(int accountNumber){
         for(Account account : accounts)
             if(account.getAccountNumber() == accountNumber)
-                return true;
-        return false;
+                return false;
+        return true;
     }
 }
