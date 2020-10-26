@@ -3,7 +3,17 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Menu {
-    //CONSTRUCTOR
+
+    String accountsNumberString = "";
+    Scanner input = new Scanner(System.in);
+    public static Account[] accounts = {
+            new SpecialAccount(111),
+            new SpecialAccount(222),
+            new CommonAccount(333),
+            new CommonAccount(444),
+            new CommonAccount(555)
+    };
+
     public Menu(){
         for(Account account : accounts) {
             if (account instanceof SpecialAccount) accountsNumberString += "S-";
@@ -11,18 +21,6 @@ public class Menu {
         }
     }
 
-    //VARIABLES
-    String accountsNumberString = "";
-    Scanner input = new Scanner(System.in);
-    public static Account[] accounts = {
-        new SpecialAccount(111),
-        new SpecialAccount(222),
-        new CommonAccount(333),
-        new CommonAccount(444),
-        new CommonAccount(555)
-    };
-
-    //METHODS
     public void mainMenu(){
         int choose;
         do{
