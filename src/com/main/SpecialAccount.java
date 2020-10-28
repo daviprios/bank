@@ -14,5 +14,6 @@ public class SpecialAccount extends Account implements Serializable {
         this.store(-amount);
         accountTo.store(amount);
         this.transactions.add(new Transaction("Transference", amount, this.getAccountNumber(), accountTo.getAccountNumber()));
+        accountTo.transactions.add(new Transaction("Transference", amount, this.getAccountNumber(), accountTo.getAccountNumber()));
     }
 }

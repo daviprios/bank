@@ -16,5 +16,6 @@ public class CommonAccount extends Account implements Serializable {
         this.store(-( amount + amount * tax));
         accountTo.store(amount);
         this.transactions.add(new Transaction("Transference", amount, tax, this.getAccountNumber(), accountTo.getAccountNumber()));
+        accountTo.transactions.add(new Transaction("Transference", amount, tax, this.getAccountNumber(), accountTo.getAccountNumber()));
     }
 }

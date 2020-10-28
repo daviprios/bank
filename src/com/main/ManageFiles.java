@@ -9,11 +9,13 @@ import java.util.List;
 public class ManageFiles {
     private static final String path = "C:\\JAVAPROGRAMSAVEFILES\\";
     private static final String accountsPath = "C:\\JAVAPROGRAMSAVEFILES\\ACCOUNTS\\";
+    private static final String transactionsPath = "C:\\JAVAPROGRAMSAVEFILES\\TRANSACTIONS\\";
 
     public static void initialize(){
         try {
             new File(path).mkdir();
             new File(accountsPath).mkdir();
+            new File(transactionsPath).mkdir();
             new File(path + "config.config").createNewFile();
         } catch (IOException ex){
             ex.printStackTrace();
@@ -45,7 +47,26 @@ public class ManageFiles {
                 ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(accountsPath + account.getAccountNumber()));
                 file.writeObject(account);
                 file.close();
+                createTransactionsFile(account.getTransactions(), account.getAccountNumber());
             }
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    private static void createTransactionsFile(List<String> transactions, int accountNumber){
+        try {
+            File fileItem = new File(transactionsPath + accountNumber + ".txt");
+            fileItem.delete();
+            fileItem.createNewFile();
+            FileWriter fileWriter = new FileWriter(transactionsPath + accountNumber + ".txt");
+            for (String transaction : transactions) {
+                if (fileItem.canWrite()) {
+                    fileWriter.write(transaction);
+                    fileWriter.write("\n\n");
+                }
+            }
+            fileWriter.close();
         } catch (IOException ex){
             ex.printStackTrace();
         }

@@ -1,8 +1,11 @@
 package com.main;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Transaction {
+public class Transaction implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int senderAccountNumber = 0, receiverAccountNumber = 0;
     long time;
     float tax = 0, value;
@@ -10,8 +13,8 @@ public class Transaction {
 
     Transaction(String type, int value, float tax, int sender, int receiver){
         this.type = type;
-        this.tax = tax;
-        this.value = value * tax;
+        this.tax = value * tax;
+        this.value = value;
         this.senderAccountNumber = sender;
         this.receiverAccountNumber = receiver;
         this.time = new Date().getTime();
